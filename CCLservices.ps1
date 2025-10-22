@@ -1,6 +1,6 @@
 Clear-Host
 
-# === Function for centering ===
+# === Center text helper ===
 function Write-Centered {
     param(
         [Parameter(Mandatory=$true)][string]$Text,
@@ -11,19 +11,17 @@ function Write-Centered {
     Write-Host (" " * $pad + $Text) -ForegroundColor $Color
 }
 
-# === Large Text Header (fits CMD safely) ===
+# === BIG TITLE (looks 5x larger without ASCII) ===
 Write-Host ""
-Write-Centered "  _____   _____ _        _____                          _                " Cyan
-Write-Centered " /  __ \ /  __ (_)      /  ___|                        | |               " Cyan
-Write-Centered " | /  \/ | /  \/_  ___  \ \`--. _ __   ___  ___ ___   __| | ___  ___ ___  " Cyan
-Write-Centered " | |     | |   | |/ __|  \`--. \ '_ \ / _ \/ __/ _ \ / _\` |/ _ \/ __/ __| " Cyan
-Write-Centered " | \__/\ | \__/\ | (__  /\__/ / |_) |  __/ (_| (_) | (_| |  __/\__ \__ \ " Cyan
-Write-Centered "  \____/  \____/_|\___| \____/| .__/ \___|\___\___/ \__,_|\___||___/___/ " Cyan
-Write-Centered "                               | |                                        " Cyan
-Write-Centered "                               |_|                                        " Cyan
+Write-Centered "██████╗  ██████╗ ██╗          ███████╗██████╗ ██╗██╗   ██╗███████╗" Cyan
+Write-Centered "██╔══██╗██╔═══██╗██║          ██╔════╝██╔══██╗██║██║   ██║██╔════╝" Cyan
+Write-Centered "██║  ██║██║   ██║██║          █████╗  ██████╔╝██║██║   ██║█████╗  " Cyan
+Write-Centered "██║  ██║██║   ██║██║          ██╔══╝  ██╔══██╗██║╚██╗ ██╔╝██╔══╝  " Cyan
+Write-Centered "██████╔╝╚██████╔╝███████╗     ███████╗██║  ██║██║ ╚████╔╝ ███████╗" Cyan
+Write-Centered "╚═════╝  ╚═════╝ ╚══════╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝" Cyan
 Write-Host ""
-Write-Centered "                CCL Service Checker - Made by Dress" Cyan
-Write-Host "`n"
+Write-Centered "                 MADE BY DRESS" Cyan
+Write-Host "`n`n"
 
 # === GUI SECTION ===
 
