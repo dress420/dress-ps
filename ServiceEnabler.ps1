@@ -6,7 +6,7 @@ ___       ___  ___       ___  _________  ___  ___
   \ \  \____\ \  \ \  \____\ \  \   \ \  \ \ \  \ \  \ 
    \ \_______\ \__\ \_______\ \__\   \ \__\ \ \__\ \__\
     \|_______|\|__|\|_______|\|__|    \|__|  \|__|\|__|
-Made with love by lily & dress 💙                                                       
+Made with love by dress & lily                                                      
                                                        
                                                        
 "@ -ForegroundColor Cyan
@@ -17,7 +17,7 @@ Add-Type -AssemblyName System.Drawing
 $servicesToCheck = @(
     "SysMain","PcaSvc","DPS","EventLog","Schedule","Bam","wsearch",
     "Appinfo","SSDPSRV","CDPSvc","DcomLaunch","PlugPlay",
-    "DusmSvc","DiagTrack"
+    "DusmSvc","DiagTrack","Dnscache"
 )
 
 $form = New-Object System.Windows.Forms.Form
@@ -89,20 +89,21 @@ $statusLabel.TextAlign = "MiddleLeft"
 $form.Controls.Add($statusLabel)
 
 $serviceDescriptions = @{
-    "SysMain"   = "Prefetcher for faster app loading"
-    "PcaSvc"    = "Program Compatibility Assistant"
-    "DPS"       = "Diagnostic Policy Service"
-    "EventLog"  = "Windows Event Log"
-    "Schedule"  = "Task Scheduler"
-    "Bam"       = "Background Activity Moderator"
-    "wsearch"   = "Windows Search"
-    "Appinfo"   = "Application Information"
-    "SSDPSRV"   = "SSDP Discovery"
-    "CDPSvc"    = "Connected Devices Platform"
-    "DcomLaunch"= "DCOM Server Process Launcher"
-    "PlugPlay"  = "Plug and Play"
-    "DusmSvc"   = "Data Usage Service (monitors and tracks data usage)"
-    "DiagTrack" = "Connected User Experiences and Telemetry"
+    "SysMain"    = "Prefetcher for faster app loading"
+    "PcaSvc"     = "Program Compatibility Assistant"
+    "DPS"        = "Diagnostic Policy Service"
+    "EventLog"   = "Windows Event Log"
+    "Schedule"   = "Task Scheduler"
+    "Bam"        = "Background Activity Moderator"
+    "wsearch"    = "Windows Search"
+    "Appinfo"    = "Application Information"
+    "SSDPSRV"    = "SSDP Discovery"
+    "CDPSvc"     = "Connected Devices Platform"
+    "DcomLaunch" = "DCOM Server Process Launcher"
+    "PlugPlay"   = "Plug and Play"
+    "DusmSvc"    = "Data Usage Service (monitors and tracks data usage)"
+    "DiagTrack"  = "Connected User Experiences and Telemetry"
+    "Dnscache"   = "DNS Client Service (resolves and caches DNS names)"
 }
 
 function Refresh-Services {
