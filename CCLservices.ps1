@@ -1,9 +1,7 @@
 # CCL Service Checker - Made by Dress
+# CMD-Compatible Version (Red ASCII Header, No ANSI Escape Codes)
 
 Clear-Host
-
-# Detect ANSI support
-$SupportsANSI = $Host.UI.SupportsVirtualTerminal
 
 # === RED ASCII HEADER ===
 $ascii = @"
@@ -19,13 +17,12 @@ $ascii = @"
                                                                                    CCL SERVICE CHECKER — Made by Dress                                                                      
 "@
 
-if ($SupportsANSI) {
-    Write-Host "`e[31m$ascii`e[0m"
-} else {
-    Write-Host $ascii -ForegroundColor Red
-}
+# ✅ CMD-safe color output (no ANSI escape sequences)
+Write-Host $ascii -ForegroundColor Red
 
-# === GUI ===
+
+# === GUI SECTION ===
+
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
@@ -118,26 +115,33 @@ $serviceDescriptions = @{
 
 function Refresh-Services {
     $listView.Items.Clear()
+    
     foreach ($serviceName in $servicesToCheck) {
         $service = Get-Service -Name $serviceName -ErrorAction SilentlyContinue
         $description = $serviceDescriptions[$serviceName]
+        
         if ($service) {
             $status = $service.Status.ToString()
             $startupObj = Get-CimInstance -ClassName Win32_Service -Filter "Name='$serviceName'" -ErrorAction SilentlyContinue
             $startup = if ($startupObj) { $startupObj.StartMode } else { "Unknown" }
+            
             $item = New-Object System.Windows.Forms.ListViewItem("")
+            $item.Checked = $false
             $item.SubItems.Add($serviceName) | Out-Null
             $item.SubItems.Add($status) | Out-Null
             $item.SubItems.Add($startup) | Out-Null
             $item.SubItems.Add($description) | Out-Null
-            $item.BackColor = if ($status -eq "Running") {
-                [System.Drawing.Color]::FromArgb(240,255,240)
+            
+            if ($status -eq "Running") {
+                $item.BackColor = [System.Drawing.Color]::FromArgb(240, 255, 240)
             } else {
-                [System.Drawing.Color]::FromArgb(255,240,240)
+                $item.BackColor = [System.Drawing.Color]::FromArgb(255, 240, 240)
             }
+            
             $listView.Items.Add($item) | Out-Null
         } else {
             $item = New-Object System.Windows.Forms.ListViewItem("")
+            $item.Checked = $false
             $item.SubItems.Add($serviceName) | Out-Null
             $item.SubItems.Add("Not Found") | Out-Null
             $item.SubItems.Add("N/A") | Out-Null
@@ -151,10 +155,12 @@ function Refresh-Services {
 $buttonEnable.Add_Click({
     $selectedCount = 0
     $successCount = 0
+    
     foreach ($item in $listView.Items) {
         if ($item.Checked) {
             $selectedCount++
             $serviceName = $item.SubItems[1].Text
+            
             try {
                 Set-Service -Name $serviceName -StartupType Automatic -ErrorAction SilentlyContinue
                 $service = Get-Service -Name $serviceName -ErrorAction SilentlyContinue
@@ -165,11 +171,13 @@ $buttonEnable.Add_Click({
             } catch {}
         }
     }
+    
     Refresh-Services
-    $statusLabel.Text = if ($selectedCount -eq 0) {
-        "Please select at least one service to enable"
+    
+    if ($selectedCount -eq 0) {
+        $statusLabel.Text = "Please select at least one service to enable"
     } else {
-        "Completed: $successCount of $selectedCount services enabled successfully"
+        $statusLabel.Text = "Completed: $successCount of $selectedCount services enabled successfully"
     }
 })
 
