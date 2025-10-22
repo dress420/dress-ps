@@ -1,6 +1,6 @@
 Clear-Host
 
-# === Center text helper ===
+# === Center helper ===
 function Write-Centered {
     param(
         [Parameter(Mandatory=$true)][string]$Text,
@@ -11,19 +11,19 @@ function Write-Centered {
     Write-Host (" " * $pad + $Text) -ForegroundColor $Color
 }
 
-# === BIG TITLE (looks 5x larger without ASCII) ===
+# === Properly aligned header ===
 Write-Host ""
-Write-Centered "██████╗  ██████╗ ██╗          ███████╗██████╗ ██╗██╗   ██╗███████╗" Cyan
-Write-Centered "██╔══██╗██╔═══██╗██║          ██╔════╝██╔══██╗██║██║   ██║██╔════╝" Cyan
-Write-Centered "██║  ██║██║   ██║██║          █████╗  ██████╔╝██║██║   ██║█████╗  " Cyan
-Write-Centered "██║  ██║██║   ██║██║          ██╔══╝  ██╔══██╗██║╚██╗ ██╔╝██╔══╝  " Cyan
-Write-Centered "██████╔╝╚██████╔╝███████╗     ███████╗██║  ██║██║ ╚████╔╝ ███████╗" Cyan
-Write-Centered "╚═════╝  ╚═════╝ ╚══════╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝" Cyan
+Write-Centered "  ██████╗  ██████╗██╗         ███████╗███████╗██╗██╗   ██╗██╗ ██████╗███████╗" Cyan
+Write-Centered " ██╔═══██╗██╔════╝██║         ██╔════╝██╔════╝██║██║   ██║██║██╔════╝██╔════╝" Cyan
+Write-Centered " ██║   ██║██║     ██║         █████╗  ███████╗██║██║   ██║██║██║     █████╗  " Cyan
+Write-Centered " ██║   ██║██║     ██║         ██╔══╝  ╚════██║██║╚██╗ ██╔╝██║██║     ██╔══╝  " Cyan
+Write-Centered " ╚██████╔╝╚██████╗███████╗    ███████╗███████║██║ ╚████╔╝ ██║╚██████╗███████╗" Cyan
+Write-Centered "  ╚═════╝  ╚═════╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═══╝  ╚═╝ ╚═════╝╚══════╝" Cyan
 Write-Host ""
-Write-Centered "                 MADE BY DRESS" Cyan
-Write-Host "`n`n"
+Write-Centered "                   MADE BY DRESS" Cyan
+Write-Host "`n"
 
-# === GUI SECTION ===
+# === GUI Section ===
 
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
