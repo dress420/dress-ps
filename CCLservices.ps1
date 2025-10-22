@@ -1,9 +1,15 @@
 # CCL Service Checker - Made by Dress
-# CMD-Compatible Version (Red ASCII Header, No ANSI Escape Codes)
+# Universal Version (Centered Red ASCII, Works in CMD, PowerShell, Windows Terminal)
+
+# --- FIX: Enable UTF-8 and ANSI color in CMD-hosted PowerShell ---
+if (-not $Host.UI.SupportsVirtualTerminal) {
+    try { $Host.UI.SupportsVirtualTerminal = $true } catch {}
+}
+$OutputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
 
 Clear-Host
 
-# === RED ASCII HEADER ===
+# === ASCII HEADER ===
 $ascii = @"
   /$$$$$$   /$$$$$$  /$$              /$$$$$$                                 /$$                            /$$$$$$   /$$$$$$  /$$                           /$$                          
  /$$__  $$ /$$__  $$| $$             /$$__  $$                               |__/                           /$$__  $$ /$$__  $$| $$                          | $$                          
@@ -17,9 +23,20 @@ $ascii = @"
                                                                                    CCL SERVICE CHECKER — Made by Dress                                                                      
 "@
 
-# ✅ CMD-safe color output (no ANSI escape sequences)
-Write-Host $ascii -ForegroundColor Red
+# === CENTER ASCII ===
+function Show-CenteredAscii {
+    param ([string]$Text, [ConsoleColor]$Color = [ConsoleColor]::Red)
+    
+    $lines = $Text -split "`n"
+    $width = [console]::WindowWidth
+    foreach ($line in $lines) {
+        $trimmed = $line.TrimEnd()
+        $padding = [Math]::Max(0, [Math]::Floor(($width - $trimmed.Length) / 2))
+        Write-Host (" " * $padding + $trimmed) -ForegroundColor $Color
+    }
+}
 
+Show-CenteredAscii -Text $ascii -Color Red
 
 # === GUI SECTION ===
 
