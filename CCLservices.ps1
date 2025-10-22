@@ -1,4 +1,7 @@
-Write-Host @"
+# Full GUI Service Manager with custom red ASCII header
+Clear-Host
+
+$ascii = @"
   /$$$$$$   /$$$$$$  /$$              /$$$$$$                                 /$$                            /$$$$$$  /$$                           /$$                          
  /$$__  $$ /$$__  $$| $$             /$$__  $$                               |__/                           /$$__  $$| $$                          | $$                          
 | $$  \__/| $$  \__/| $$            | $$  \__/  /$$$$$$   /$$$$$$  /$$    /$$ /$$  /$$$$$$$  /$$$$$$       | $$  \__/| $$$$$$$   /$$$$$$   /$$$$$$$| $$   /$$  /$$$$$$   /$$$$$$ 
@@ -21,34 +24,40 @@ Write-Host @"
                                                                                            /$$  | $$                                                                             
                                                                                           |  $$$$$$/                                                                             
                                                                                            \______/                                                                              
-"@ -ForegroundColor Red
+"@
+
+# Print ASCII header in red
+Write-Host $ascii -ForegroundColor Red
 
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
-# ✅ Services to include
+# Services to include
 $servicesToCheck = @(
     "DusmSvc", "Appinfo", "PcaSvc", "DPS",
     "DiagTrack", "SysMain", "Dnscache", "EventLog",
     "Bam", "Schedule", "WSearch"
 )
 
+# Create form
 $form = New-Object System.Windows.Forms.Form
 $form.Text = "Windows Service Manager"
-$form.Size = New-Object System.Drawing.Size(600,450)
+$form.Size = New-Object System.Drawing.Size(720,520)
 $form.StartPosition = "CenterScreen"
 $form.MaximizeBox = $false
 $form.FormBorderStyle = "FixedDialog"
 
+# Header label
 $headerLabel = New-Object System.Windows.Forms.Label
 $headerLabel.Text = "Select services to enable and set to auto-start:"
-$headerLabel.Size = New-Object System.Drawing.Size(560,20)
+$headerLabel.Size = New-Object System.Drawing.Size(660,20)
 $headerLabel.Location = New-Object System.Drawing.Point(20,20)
 $headerLabel.Font = New-Object System.Drawing.Font("Segoe UI", 10, [System.Drawing.FontStyle]::Bold)
 $form.Controls.Add($headerLabel)
 
+# ListView
 $listView = New-Object System.Windows.Forms.ListView
-$listView.Size = New-Object System.Drawing.Size(560,280)
+$listView.Size = New-Object System.Drawing.Size(660,320)
 $listView.Location = New-Object System.Drawing.Point(20,50)
 $listView.View = "Details"
 $listView.FullRowSelect = $true
@@ -57,21 +66,22 @@ $listView.MultiSelect = $true
 $listView.CheckBoxes = $true
 
 $listView.Columns.Add("Enable", 60) | Out-Null
-$listView.Columns.Add("Service Name", 150) | Out-Null
-$listView.Columns.Add("Status", 80) | Out-Null
-$listView.Columns.Add("Startup Type", 100) | Out-Null
-$listView.Columns.Add("Description", 150) | Out-Null
+$listView.Columns.Add("Service Name", 180) | Out-Null
+$listView.Columns.Add("Status", 100) | Out-Null
+$listView.Columns.Add("Startup Type", 120) | Out-Null
+$listView.Columns.Add("Description", 200) | Out-Null
 
 $form.Controls.Add($listView)
 
+# Button panel
 $buttonPanel = New-Object System.Windows.Forms.Panel
-$buttonPanel.Size = New-Object System.Drawing.Size(560,40)
-$buttonPanel.Location = New-Object System.Drawing.Point(20,340)
+$buttonPanel.Size = New-Object System.Drawing.Size(660,50)
+$buttonPanel.Location = New-Object System.Drawing.Point(20,380)
 
 $selectAllBox = New-Object System.Windows.Forms.CheckBox
 $selectAllBox.Text = "Select All"
 $selectAllBox.Size = New-Object System.Drawing.Size(100,20)
-$selectAllBox.Location = New-Object System.Drawing.Point(10,10)
+$selectAllBox.Location = New-Object System.Drawing.Point(10,15)
 $selectAllBox.Add_CheckedChanged({
     foreach ($item in $listView.Items) {
         $item.Checked = $selectAllBox.Checked
@@ -81,27 +91,35 @@ $buttonPanel.Controls.Add($selectAllBox)
 
 $buttonEnable = New-Object System.Windows.Forms.Button
 $buttonEnable.Text = "Enable Selected Services"
-$buttonEnable.Size = New-Object System.Drawing.Size(180,30)
-$buttonEnable.Location = New-Object System.Drawing.Point(120,5)
+$buttonEnable.Size = New-Object System.Drawing.Size(200,30)
+$buttonEnable.Location = New-Object System.Drawing.Point(130,10)
 $buttonEnable.BackColor = [System.Drawing.Color]::LightBlue
 $buttonPanel.Controls.Add($buttonEnable)
 
 $buttonRefresh = New-Object System.Windows.Forms.Button
 $buttonRefresh.Text = "Refresh List"
-$buttonRefresh.Size = New-Object System.Drawing.Size(100,30)
-$buttonRefresh.Location = New-Object System.Drawing.Point(310,5)
+$buttonRefresh.Size = New-Object System.Drawing.Size(120,30)
+$buttonRefresh.Location = New-Object System.Drawing.Point(350,10)
 $buttonPanel.Controls.Add($buttonRefresh)
+
+$buttonClose = New-Object System.Windows.Forms.Button
+$buttonClose.Text = "Close"
+$buttonClose.Size = New-Object System.Drawing.Size(120,30)
+$buttonClose.Location = New-Object System.Drawing.Point(490,10)
+$buttonClose.Add_Click({ $form.Close() })
+$buttonPanel.Controls.Add($buttonClose)
 
 $form.Controls.Add($buttonPanel)
 
+# Status label
 $statusLabel = New-Object System.Windows.Forms.Label
 $statusLabel.Text = "Ready - Select services and click 'Enable Selected Services'"
-$statusLabel.Size = New-Object System.Drawing.Size(560,20)
-$statusLabel.Location = New-Object System.Drawing.Point(20,390)
+$statusLabel.Size = New-Object System.Drawing.Size(660,20)
+$statusLabel.Location = New-Object System.Drawing.Point(20,440)
 $statusLabel.TextAlign = "MiddleLeft"
 $form.Controls.Add($statusLabel)
 
-# ✅ Descriptions for each service
+# Service descriptions
 $serviceDescriptions = @{
     "DusmSvc"   = "Data Usage Service (tracks data usage and network stats)"
     "Appinfo"   = "Application Information Service (manages elevation for apps)"
@@ -116,6 +134,7 @@ $serviceDescriptions = @{
     "WSearch"   = "Windows Search Service (indexes files and content for fast search)"
 }
 
+# Function to refresh list
 function Refresh-Services {
     $listView.Items.Clear()
     
@@ -155,6 +174,7 @@ function Refresh-Services {
     }
 }
 
+# Button click behaviors
 $buttonEnable.Add_Click({
     $selectedCount = 0
     $successCount = 0
@@ -172,10 +192,12 @@ $buttonEnable.Add_Click({
                 }
                 $successCount++
             } catch {
+                # silent catch
             }
         }
     }
     
+    # Refresh automatically after enabling
     Refresh-Services
     
     if ($selectedCount -eq 0) {
@@ -190,5 +212,8 @@ $buttonRefresh.Add_Click({
     $statusLabel.Text = "Service list refreshed"
 })
 
+# Initial population
 Refresh-Services
+
+# Show the form
 [void]$form.ShowDialog()
