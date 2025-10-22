@@ -1,22 +1,23 @@
 # CCL Service Checker - Made by Dress
-# CMD-safe version (red ASCII, no ANSI, full GUI)
+# Simple centered title (works perfectly in CMD/PowerShell/Windows Terminal)
 
 Clear-Host
 
-# === RED ASCII HEADER ===
-Write-Host @"
-  /$$$$$$   /$$$$$$  /$$              /$$$$$$                                 /$$                            /$$$$$$   /$$$$$$  /$$                           /$$                          
- /$$__  $$ /$$__  $$| $$             /$$__  $$                               |__/                           /$$__  $$ /$$__  $$| $$                          | $$                          
-| $$  \__/| $$  \__/| $$            | $$  \__/  /$$$$$$   /$$$$$$  /$$    /$$ /$$  /$$$$$$$  /$$$$$$       | $$  \__/| $$  \ $$| $$   /$$$$$$   /$$$$$$$     | $$   /$$  /$$$$$$   /$$$$$$ 
-| $$      | $$      | $$            |  $$$$$$  /$$__  $$ /$$__  $$|  $$  /$$/| $$ /$$_____/ /$$__  $$      | $$      | $$$$$$$$| $$  /$$__  $$ /$$_____/     | $$  /$$/ /$$__  $$ /$$__  $$
-| $$      | $$      | $$             \____  $$| $$$$$$$$| $$  \__/ \  $$/$$/ | $$| $$      | $$$$$$$$      | $$      | $$__  $$| $$ | $$$$$$$$| $$           | $$$$$$/ | $$$$$$$$| $$  \__/
-| $$    $$| $$    $$| $$             /$$  \ $$| $$_____/| $$        \  $$$/  | $$| $$      | $$_____/      | $$    $$| $$  | $$| $$ | $$_____/| $$           | $$_  $$ | $$_____/| $$      
-|  $$$$$$/|  $$$$$$/| $$$$$$$$      |  $$$$$$/|  $$$$$$$| $$         \  $/   | $$|  $$$$$$$|  $$$$$$$      |  $$$$$$/| $$  | $$| $$ |  $$$$$$$|  $$$$$$$      | $$ \  $$|  $$$$$$$| $$      
- \______/  \______/ |________/       \______/  \_______/|__/          \_/    |__/ \_______/ \_______/       \______/ |__/  |__/|__/  \_______/ \_______/      |__/  \__/ \_______/|__/      
-                                                                                                                                                                                             
-                                                                                   CCL SERVICE CHECKER — Made by Dress                                                                      
-"@ -ForegroundColor Red
+# --- Minimal, bulletproof centering (no ANSI) ---
+function Write-Centered {
+    param(
+        [Parameter(Mandatory=$true)][string]$Text,
+        [ConsoleColor]$Color = [ConsoleColor]::Cyan
+    )
+    try { $width = [Console]::WindowWidth } catch { $width = 120 }
+    if ($width -lt ($Text.Length + 2)) { $width = $Text.Length + 2 }
+    $pad = [Math]::Max(0, [Math]::Floor(($width - $Text.Length) / 2))
+    Write-Host (" " * $pad + $Text) -ForegroundColor $Color
+}
 
+# Title
+Write-Centered "CCL Service Checker - Made by Dress" Cyan
+Write-Host ""
 
 # === GUI SECTION ===
 
@@ -24,7 +25,7 @@ Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
 $servicesToCheck = @(
-    "DusmSvc", "AppInfo", "PcaSvc", "DPS", "DiagTrack", 
+    "DusmSvc", "AppInfo", "PcaSvc", "DPS", "DiagTrack",
     "SysMain", "Dnscache", "EventLog", "Bam", "Schedule", "WSearch"
 )
 
@@ -112,29 +113,26 @@ $serviceDescriptions = @{
 
 function Refresh-Services {
     $listView.Items.Clear()
-    
     foreach ($serviceName in $servicesToCheck) {
         $service = Get-Service -Name $serviceName -ErrorAction SilentlyContinue
         $description = $serviceDescriptions[$serviceName]
-        
         if ($service) {
             $status = $service.Status.ToString()
             $startupObj = Get-CimInstance -ClassName Win32_Service -Filter "Name='$serviceName'" -ErrorAction SilentlyContinue
             $startup = if ($startupObj) { $startupObj.StartMode } else { "Unknown" }
-            
+
             $item = New-Object System.Windows.Forms.ListViewItem("")
             $item.Checked = $false
             $item.SubItems.Add($serviceName) | Out-Null
             $item.SubItems.Add($status) | Out-Null
             $item.SubItems.Add($startup) | Out-Null
             $item.SubItems.Add($description) | Out-Null
-            
+
             if ($status -eq "Running") {
-                $item.BackColor = [System.Drawing.Color]::FromArgb(240, 255, 240)
+                $item.BackColor = [System.Drawing.Color]::FromArgb(240,255,240)
             } else {
-                $item.BackColor = [System.Drawing.Color]::FromArgb(255, 240, 240)
+                $item.BackColor = [System.Drawing.Color]::FromArgb(255,240,240)
             }
-            
             $listView.Items.Add($item) | Out-Null
         } else {
             $item = New-Object System.Windows.Forms.ListViewItem("")
@@ -152,12 +150,10 @@ function Refresh-Services {
 $buttonEnable.Add_Click({
     $selectedCount = 0
     $successCount = 0
-    
     foreach ($item in $listView.Items) {
         if ($item.Checked) {
             $selectedCount++
             $serviceName = $item.SubItems[1].Text
-            
             try {
                 Set-Service -Name $serviceName -StartupType Automatic -ErrorAction SilentlyContinue
                 $service = Get-Service -Name $serviceName -ErrorAction SilentlyContinue
@@ -165,12 +161,10 @@ $buttonEnable.Add_Click({
                     Start-Service -Name $serviceName -ErrorAction SilentlyContinue
                 }
                 $successCount++
-            } catch {}
+            } catch { }
         }
     }
-    
     Refresh-Services
-    
     if ($selectedCount -eq 0) {
         $statusLabel.Text = "Please select at least one service to enable"
     } else {
