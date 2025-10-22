@@ -1,16 +1,10 @@
 # CCL Service Checker - Made by Dress
-# Universal Version (Centered Red ASCII, Works in CMD, PowerShell, Windows Terminal)
-
-# --- FIX: Enable UTF-8 and ANSI color in CMD-hosted PowerShell ---
-if (-not $Host.UI.SupportsVirtualTerminal) {
-    try { $Host.UI.SupportsVirtualTerminal = $true } catch {}
-}
-$OutputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+# CMD-safe version (red ASCII, no ANSI, full GUI)
 
 Clear-Host
 
-# === ASCII HEADER ===
-$ascii = @"
+# === RED ASCII HEADER ===
+Write-Host @"
   /$$$$$$   /$$$$$$  /$$              /$$$$$$                                 /$$                            /$$$$$$   /$$$$$$  /$$                           /$$                          
  /$$__  $$ /$$__  $$| $$             /$$__  $$                               |__/                           /$$__  $$ /$$__  $$| $$                          | $$                          
 | $$  \__/| $$  \__/| $$            | $$  \__/  /$$$$$$   /$$$$$$  /$$    /$$ /$$  /$$$$$$$  /$$$$$$       | $$  \__/| $$  \ $$| $$   /$$$$$$   /$$$$$$$     | $$   /$$  /$$$$$$   /$$$$$$ 
@@ -21,22 +15,8 @@ $ascii = @"
  \______/  \______/ |________/       \______/  \_______/|__/          \_/    |__/ \_______/ \_______/       \______/ |__/  |__/|__/  \_______/ \_______/      |__/  \__/ \_______/|__/      
                                                                                                                                                                                              
                                                                                    CCL SERVICE CHECKER — Made by Dress                                                                      
-"@
+"@ -ForegroundColor Red
 
-# === CENTER ASCII ===
-function Show-CenteredAscii {
-    param ([string]$Text, [ConsoleColor]$Color = [ConsoleColor]::Red)
-    
-    $lines = $Text -split "`n"
-    $width = [console]::WindowWidth
-    foreach ($line in $lines) {
-        $trimmed = $line.TrimEnd()
-        $padding = [Math]::Max(0, [Math]::Floor(($width - $trimmed.Length) / 2))
-        Write-Host (" " * $padding + $trimmed) -ForegroundColor $Color
-    }
-}
-
-Show-CenteredAscii -Text $ascii -Color Red
 
 # === GUI SECTION ===
 
