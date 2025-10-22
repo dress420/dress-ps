@@ -1,7 +1,7 @@
 #    Scans all drives including C: for executed files
 #    This script scans Prefetch, ShimCache, AmCache, ActivityCache for executed files
 #    and USN Journal for file modifications on all drives including C:
-#    Made with love by lili and dress <3
+#    Made with love by lily and dress <3
 
 Write-Host @"
 ___       ___  ___       ___  _________  ___  ___     
@@ -695,6 +695,6 @@ Write-Host "`n> SCAN COMPLETED <" -ForegroundColor Green
 Write-Host "Opening results GUI..." -ForegroundColor Yellow
 Write-Host "Total files found: $($uniqueResults.Count)" -ForegroundColor Yellow
 Write-Host "Suspicious activities: $suspiciousCount" -ForegroundColor Red
-Write-Host "File also saved to: $OutputFile" -ForegroundColor Cyan
+Write-Host "File also saved to: C:\Screenshare\output.txt" -ForegroundColor Cyan
 
 Show-ResultsGUI -Results $uniqueResults
