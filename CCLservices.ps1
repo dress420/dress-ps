@@ -1,23 +1,29 @@
-# CCL Service Checker - Made by Dress
-# Simple centered title (works perfectly in CMD/PowerShell/Windows Terminal)
-
 Clear-Host
 
-# --- Minimal, bulletproof centering (no ANSI) ---
+# === Function for centering ===
 function Write-Centered {
     param(
         [Parameter(Mandatory=$true)][string]$Text,
         [ConsoleColor]$Color = [ConsoleColor]::Cyan
     )
     try { $width = [Console]::WindowWidth } catch { $width = 120 }
-    if ($width -lt ($Text.Length + 2)) { $width = $Text.Length + 2 }
     $pad = [Math]::Max(0, [Math]::Floor(($width - $Text.Length) / 2))
     Write-Host (" " * $pad + $Text) -ForegroundColor $Color
 }
 
-# Title
-Write-Centered "CCL Service Checker - Made by Dress" Cyan
+# === Large Text Header (fits CMD safely) ===
 Write-Host ""
+Write-Centered "  _____   _____ _        _____                          _                " Cyan
+Write-Centered " /  __ \ /  __ (_)      /  ___|                        | |               " Cyan
+Write-Centered " | /  \/ | /  \/_  ___  \ \`--. _ __   ___  ___ ___   __| | ___  ___ ___  " Cyan
+Write-Centered " | |     | |   | |/ __|  \`--. \ '_ \ / _ \/ __/ _ \ / _\` |/ _ \/ __/ __| " Cyan
+Write-Centered " | \__/\ | \__/\ | (__  /\__/ / |_) |  __/ (_| (_) | (_| |  __/\__ \__ \ " Cyan
+Write-Centered "  \____/  \____/_|\___| \____/| .__/ \___|\___\___/ \__,_|\___||___/___/ " Cyan
+Write-Centered "                               | |                                        " Cyan
+Write-Centered "                               |_|                                        " Cyan
+Write-Host ""
+Write-Centered "                CCL Service Checker - Made by Dress" Cyan
+Write-Host "`n"
 
 # === GUI SECTION ===
 
