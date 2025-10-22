@@ -1,26 +1,18 @@
 Clear-Host
 
 # === Center helper ===
-function Write-Centered {
-    param(
-        [Parameter(Mandatory=$true)][string]$Text,
-        [ConsoleColor]$Color = [ConsoleColor]::Cyan
-    )
+function Center([string]$Text, [ConsoleColor]$Color = [ConsoleColor]::Cyan) {
     try { $width = [Console]::WindowWidth } catch { $width = 120 }
     $pad = [Math]::Max(0, [Math]::Floor(($width - $Text.Length) / 2))
     Write-Host (" " * $pad + $Text) -ForegroundColor $Color
 }
 
-# === Properly aligned header ===
+# === Clean centered banner ===
+Center "==============================" Cyan
+Center "      CCL SERVICE ENABLER     " Cyan
+Center "==============================" Cyan
 Write-Host ""
-Write-Centered "  ██████╗  ██████╗██╗         ███████╗███████╗██╗██╗   ██╗██╗ ██████╗███████╗" Cyan
-Write-Centered " ██╔═══██╗██╔════╝██║         ██╔════╝██╔════╝██║██║   ██║██║██╔════╝██╔════╝" Cyan
-Write-Centered " ██║   ██║██║     ██║         █████╗  ███████╗██║██║   ██║██║██║     █████╗  " Cyan
-Write-Centered " ██║   ██║██║     ██║         ██╔══╝  ╚════██║██║╚██╗ ██╔╝██║██║     ██╔══╝  " Cyan
-Write-Centered " ╚██████╔╝╚██████╗███████╗    ███████╗███████║██║ ╚████╔╝ ██║╚██████╗███████╗" Cyan
-Write-Centered "  ╚═════╝  ╚═════╝╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═══╝  ╚═╝ ╚═════╝╚══════╝" Cyan
-Write-Host ""
-Write-Centered "                   MADE BY DRESS" Cyan
+Center "           MADE BY DRESS       " Cyan
 Write-Host "`n"
 
 # === GUI Section ===
@@ -34,7 +26,7 @@ $servicesToCheck = @(
 )
 
 $form = New-Object System.Windows.Forms.Form
-$form.Text = "CCL Service Checker"
+$form.Text = "CCL Service Enabler"
 $form.Size = New-Object System.Drawing.Size(600,450)
 $form.StartPosition = "CenterScreen"
 $form.MaximizeBox = $false
