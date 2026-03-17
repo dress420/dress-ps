@@ -1,52 +1,32 @@
 $Host.UI.RawUI.WindowTitle = "Service Enabler - by dress"
 
+# Get console width for centering
+$consoleWidth = $Host.UI.RawUI.WindowSize.Width
+
+function Write-Centered {
+    param([string]$Text, [string]$Color = "Red")
+    $pad = [Math]::Max(0, [Math]::Floor(($consoleWidth - $Text.Length) / 2))
+    $spaces = " " * $pad
+    Write-Host "$spaces$Text" -ForegroundColor $Color
+}
+
 Write-Host ""
-Write-Host "   ╔═══════════════════════════════════════════════════════════════════════╗" -ForegroundColor DarkRed
-Write-Host "   ║                                                                       ║" -ForegroundColor DarkRed
-Write-Host "   ║" -ForegroundColor DarkRed -NoNewline
-Write-Host "   ███████╗███████╗██████╗ ██╗   ██╗██╗ ██████╗███████╗" -ForegroundColor Red -NoNewline
-Write-Host "          ║" -ForegroundColor DarkRed
-Write-Host "   ║" -ForegroundColor DarkRed -NoNewline
-Write-Host "   ██╔════╝██╔════╝██╔══██╗██║   ██║██║██╔════╝██╔════╝" -ForegroundColor Red -NoNewline
-Write-Host "          ║" -ForegroundColor DarkRed
-Write-Host "   ║" -ForegroundColor DarkRed -NoNewline
-Write-Host "   ███████╗█████╗  ██████╔╝██║   ██║██║██║     █████╗  " -ForegroundColor Red -NoNewline
-Write-Host "          ║" -ForegroundColor DarkRed
-Write-Host "   ║" -ForegroundColor DarkRed -NoNewline
-Write-Host "   ╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██║██║     ██╔══╝  " -ForegroundColor Red -NoNewline
-Write-Host "          ║" -ForegroundColor DarkRed
-Write-Host "   ║" -ForegroundColor DarkRed -NoNewline
-Write-Host "   ███████║███████╗██║  ██║ ╚████╔╝ ██║╚██████╗███████╗" -ForegroundColor Red -NoNewline
-Write-Host "          ║" -ForegroundColor DarkRed
-Write-Host "   ║" -ForegroundColor DarkRed -NoNewline
-Write-Host "   ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝ ╚═════╝╚══════╝" -ForegroundColor Red -NoNewline
-Write-Host "          ║" -ForegroundColor DarkRed
-Write-Host "   ║" -ForegroundColor DarkRed -NoNewline
-Write-Host "   ███████╗███╗   ██╗ █████╗ ██████╗ ██╗     ███████╗██████╗ " -ForegroundColor Red -NoNewline
-Write-Host "   ║" -ForegroundColor DarkRed
-Write-Host "   ║" -ForegroundColor DarkRed -NoNewline
-Write-Host "   ██╔════╝████╗  ██║██╔══██╗██╔══██╗██║     ██╔════╝██╔══██╗" -ForegroundColor Red -NoNewline
-Write-Host "   ║" -ForegroundColor DarkRed
-Write-Host "   ║" -ForegroundColor DarkRed -NoNewline
-Write-Host "   █████╗  ██╔██╗ ██║███████║██████╔╝██║     █████╗  ██████╔╝" -ForegroundColor Red -NoNewline
-Write-Host "   ║" -ForegroundColor DarkRed
-Write-Host "   ║" -ForegroundColor DarkRed -NoNewline
-Write-Host "   ██╔══╝  ██║╚██╗██║██╔══██║██╔══██╗██║     ██╔══╝  ██╔══██╗" -ForegroundColor Red -NoNewline
-Write-Host "  ║" -ForegroundColor DarkRed
-Write-Host "   ║" -ForegroundColor DarkRed -NoNewline
-Write-Host "   ███████╗██║ ╚████║██║  ██║██████╔╝███████╗███████╗██║  ██║" -ForegroundColor Red -NoNewline
-Write-Host "  ║" -ForegroundColor DarkRed
-Write-Host "   ║" -ForegroundColor DarkRed -NoNewline
-Write-Host "   ╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝" -ForegroundColor Red -NoNewline
-Write-Host "  ║" -ForegroundColor DarkRed
-Write-Host "   ║                                                                       ║" -ForegroundColor DarkRed
-Write-Host "   ║" -ForegroundColor DarkRed -NoNewline
-Write-Host "                      ── ★  " -ForegroundColor DarkGray -NoNewline
-Write-Host "made by dress" -ForegroundColor White -NoNewline
-Write-Host "  ★ ──                       " -ForegroundColor DarkGray -NoNewline
-Write-Host "║" -ForegroundColor DarkRed
-Write-Host "   ║                                                                       ║" -ForegroundColor DarkRed
-Write-Host "   ╚═══════════════════════════════════════════════════════════════════════╝" -ForegroundColor DarkRed
+Write-Host ""
+Write-Centered "  ██████  ███████ ██████  ██    ██ ██  ██████ ███████" "Red"
+Write-Centered " ██       ██      ██   ██ ██    ██ ██ ██      ██     " "Red"
+Write-Centered "  █████   █████   ██████  ██    ██ ██ ██      █████  " "Red"
+Write-Centered "      ██  ██      ██   ██  ██  ██  ██ ██      ██     " "Red"
+Write-Centered "  ██████  ███████ ██   ██   ████   ██  ██████ ███████" "Red"
+Write-Host ""
+Write-Centered "███████ ███    ██  █████  ██████  ██      ███████ ██████ " "Red"
+Write-Centered "██      ████   ██ ██   ██ ██   ██ ██      ██      ██   ██" "Red"
+Write-Centered "█████   ██ ██  ██ ███████ ██████  ██      █████   ██████ " "Red"
+Write-Centered "██      ██  ██ ██ ██   ██ ██   ██ ██      ██      ██   ██" "Red"
+Write-Centered "███████ ██   ████ ██   ██ ██████  ███████ ███████ ██   ██" "Red"
+Write-Host ""
+Write-Host ""
+Write-Centered "-------  made by dress  -------" "DarkGray"
+Write-Host ""
 Write-Host ""
 
 Add-Type -AssemblyName System.Windows.Forms
