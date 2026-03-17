@@ -1,20 +1,26 @@
 $Host.UI.RawUI.WindowTitle = "Service Enabler - by dress"
 
 Write-Host ""
-Write-Host ""
-Write-Host "                    ___  ____  ____  _  _  __  ___  ____  " -ForegroundColor Red
-Write-Host "                   / __)(  __)(  _ \/ )( \(  )/ __)(  __) " -ForegroundColor Red
-Write-Host "                   \__ \ ) _)  )   /\ \/ / )(( (__  ) _)  " -ForegroundColor Red
-Write-Host "                   (___/(____)(__\_) \____/(__)\___)(____)  " -ForegroundColor Red
-Write-Host ""
-Write-Host "              ____  __ _   __   ____  __    ____  ____  " -ForegroundColor Red
-Write-Host "             (  __)(  ( \ / _\ (  _ \(  )  (  __)(  _ \ " -ForegroundColor Red
-Write-Host "              ) _) /    //    \ ) _ (/ (_/\ ) _)  )   / " -ForegroundColor Red
-Write-Host "             (____)\_)__)\_/\_/(____/\____/(____)(__\_) " -ForegroundColor Red
-Write-Host ""
-Write-Host "                        ---  made by dress  ---         " -ForegroundColor DarkGray
-Write-Host ""
-Write-Host ""
+Write-Host '  .d8888b.                            d8b                   ' -ForegroundColor Red
+Write-Host ' d88P  Y88b                           Y8P                   ' -ForegroundColor Red
+Write-Host ' Y88b.                                                      ' -ForegroundColor Red
+Write-Host '  "Y888b.    .d88b.  888d888 888  888 888  .d8888b  .d88b.  ' -ForegroundColor Red
+Write-Host '     "Y88b. d8P  Y8b 888P"   888  888 888 d88P"    d8P  Y8b ' -ForegroundColor Red
+Write-Host '       "888 88888888 888     Y88  88P 888 888      88888888 ' -ForegroundColor Red
+Write-Host ' Y88b  d88P Y8b.     888      Y8bd8P  888 Y88b.    Y8b.     ' -ForegroundColor Red
+Write-Host '  "Y8888P"   "Y8888  888       Y88P   888  "Y8888P  "Y8888  ' -ForegroundColor Red
+Write-Host ''
+Write-Host ' 8888888888                   888      888                   ' -ForegroundColor Red
+Write-Host ' 888                          888      888                   ' -ForegroundColor Red
+Write-Host ' 888                          888      888                   ' -ForegroundColor Red
+Write-Host ' 8888888    88888b.   8888b.  888888b. 888  .d88b.  888d888 ' -ForegroundColor Red
+Write-Host ' 888        888 "88b     "88b 888  "88b888 d8P  Y8b 888P"   ' -ForegroundColor Red
+Write-Host ' 888        888  888 .d888888 888  888 888 88888888 888     ' -ForegroundColor Red
+Write-Host ' 888        888  888 888  888 888 d88P 888 Y8b.     888     ' -ForegroundColor Red
+Write-Host ' 8888888888 888  888 "Y888888 88888P"  888  "Y8888  888     ' -ForegroundColor Red
+Write-Host ''
+Write-Host '                     ---  made by dress  ---                ' -ForegroundColor DarkGray
+Write-Host ''
 
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
