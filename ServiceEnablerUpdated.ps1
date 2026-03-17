@@ -1,31 +1,18 @@
 $Host.UI.RawUI.WindowTitle = "Service Enabler - by dress"
 
-# Get console width for centering
-$consoleWidth = $Host.UI.RawUI.WindowSize.Width
-
-function Write-Centered {
-    param([string]$Text, [string]$Color = "Red")
-    $pad = [Math]::Max(0, [Math]::Floor(($consoleWidth - $Text.Length) / 2))
-    $spaces = " " * $pad
-    Write-Host "$spaces$Text" -ForegroundColor $Color
-}
-
 Write-Host ""
 Write-Host ""
-Write-Centered "  ██████  ███████ ██████  ██    ██ ██  ██████ ███████" "Red"
-Write-Centered " ██       ██      ██   ██ ██    ██ ██ ██      ██     " "Red"
-Write-Centered "  █████   █████   ██████  ██    ██ ██ ██      █████  " "Red"
-Write-Centered "      ██  ██      ██   ██  ██  ██  ██ ██      ██     " "Red"
-Write-Centered "  ██████  ███████ ██   ██   ████   ██  ██████ ███████" "Red"
+Write-Host "                    ___  ____  ____  _  _  __  ___  ____  " -ForegroundColor Red
+Write-Host "                   / __)(  __)(  _ \/ )( \(  )/ __)(  __) " -ForegroundColor Red
+Write-Host "                   \__ \ ) _)  )   /\ \/ / )(( (__  ) _)  " -ForegroundColor Red
+Write-Host "                   (___/(____)(__\_) \____/(__)\___)(____)  " -ForegroundColor Red
 Write-Host ""
-Write-Centered "███████ ███    ██  █████  ██████  ██      ███████ ██████ " "Red"
-Write-Centered "██      ████   ██ ██   ██ ██   ██ ██      ██      ██   ██" "Red"
-Write-Centered "█████   ██ ██  ██ ███████ ██████  ██      █████   ██████ " "Red"
-Write-Centered "██      ██  ██ ██ ██   ██ ██   ██ ██      ██      ██   ██" "Red"
-Write-Centered "███████ ██   ████ ██   ██ ██████  ███████ ███████ ██   ██" "Red"
+Write-Host "              ____  __ _   __   ____  __    ____  ____  " -ForegroundColor Red
+Write-Host "             (  __)(  ( \ / _\ (  _ \(  )  (  __)(  _ \ " -ForegroundColor Red
+Write-Host "              ) _) /    //    \ ) _ (/ (_/\ ) _)  )   / " -ForegroundColor Red
+Write-Host "             (____)\_)__)\_/\_/(____/\____/(____)(__\_) " -ForegroundColor Red
 Write-Host ""
-Write-Host ""
-Write-Centered "-------  made by dress  -------" "DarkGray"
+Write-Host "                        ---  made by dress  ---         " -ForegroundColor DarkGray
 Write-Host ""
 Write-Host ""
 
